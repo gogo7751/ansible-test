@@ -1,0 +1,3 @@
+hosts: server
+    roles:
+      - { role: commom, become: yes }
