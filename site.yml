@@ -2,9 +2,10 @@
 - hosts: web
   gather_facts: no
   
-  roles:
-    - role: common
-      become: yes
+  tasks:
+    - name: install common
+      include_role:
+        name: common
 
   #   - name: install package
   #     become: yes
