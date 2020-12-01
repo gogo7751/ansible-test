@@ -7,24 +7,7 @@
       include_role:
         name: common
 
-  #   - name: install package
-  #     become: yes
-  #     yum:
-  #       name: "{{packages}}"
-  #       state: present
+    - name: install nginx
+      include_role:
+        name: nginx
 
-  #     vars:
-  #       packages:
-  #       - '*'
-  #       - git
-  #       - python3
-  #       - python3-devel
-  #       - python3-pip
-  #       - python-pip
-  #       - python-setuptools
-
-  #   - name: install flask
-  #     become: yes
-  #     pip:
-  #       name: flask
-  #       state: present
