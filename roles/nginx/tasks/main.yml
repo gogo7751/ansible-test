@@ -3,9 +3,15 @@
   become: yes
   vars:
     packages: nginx 
-  yum: name={{ packages }} state=present
+  yum: 
+  - name={{ packages }} 
+  - state=present
 
 
 - name: service nginx start
-  service: name=nginx enabled=yes state=started
   become: yes
+  service: 
+  - name=nginx 
+  - enabled=yes 
+  - state=started
+
