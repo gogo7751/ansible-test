@@ -1,13 +1,2 @@
 ---
-- name: install nginx
-  become: yes
-  vars:
-    packages: nginx 
-  yum: name={{ packages }} state=present
-
-
-- name: service nginx start
-  become: yes
-  service: name=nginx enabled=yes state=started
-
-
+# tasks file for roles/nginx
