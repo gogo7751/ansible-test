@@ -1,6 +1,6 @@
+---
 - name: web service
-  remote_user: ericshchang 
-  hosts: localhost 
+  become: yes
   vars:
     packages: nginx 
   tasks:
