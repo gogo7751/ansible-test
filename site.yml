@@ -3,7 +3,7 @@
   gather_facts: no
   
   roles:
-    - common
+    - { role: common }
 
   #   - name: install package
   #     become: yes
