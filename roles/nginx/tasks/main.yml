@@ -3,11 +3,9 @@
   become: yes
   vars:
     packages: nginx 
-  tasks:
-    - name: install nginx 
-      yum: name={{ packages }} state=present
-      tags: install
-    - name: service nginx start
-      service: name=nginx enabled=yes state=started
-      sudo: yes
-      tags: start
+  yum: name={{ packages }} state=present
+
+
+- name: service nginx start
+  service: name=nginx enabled=yes state=started
+  become: yes
