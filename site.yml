@@ -1,5 +1,5 @@
 ---
-- hosts: server
+- hosts: web
   gather_facts: no
   
   roles:
