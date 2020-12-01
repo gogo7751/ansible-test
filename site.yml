@@ -2,27 +2,27 @@
 - hosts: web
   gather_facts: no
   
-  # roles:
-  #   - { role: common, become: yes }
-  tasks:
-    - name: install package
-      become: yes
-      yum:
-        name: "{{packages}}"
-        state: present
+  roles:
+    - common
 
-      vars:
-        packages:
-        - '*'
-        - git
-        - python3
-        - python3-devel
-        - python3-pip
-        - python-pip
-        - python-setuptools
+  #   - name: install package
+  #     become: yes
+  #     yum:
+  #       name: "{{packages}}"
+  #       state: present
 
-    - name: install flask
-      become: yes
-      pip:
-        name: flask
-        state: present
+  #     vars:
+  #       packages:
+  #       - '*'
+  #       - git
+  #       - python3
+  #       - python3-devel
+  #       - python3-pip
+  #       - python-pip
+  #       - python-setuptools
+
+  #   - name: install flask
+  #     become: yes
+  #     pip:
+  #       name: flask
+  #       state: present
