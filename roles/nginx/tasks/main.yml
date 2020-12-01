@@ -1,5 +1,5 @@
 ---
-- name: web service
+- name: install nginx
   become: yes
   vars:
     packages: nginx 
