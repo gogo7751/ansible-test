@@ -10,4 +10,3 @@
     - name: install nginx
       include_role:
         name: nginx
-

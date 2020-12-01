@@ -1,2 +1,18 @@
 ---
 # tasks file for roles/common
+- name: install package.
+  become: yes
+  yum:
+    name: "{{packages}}"
+    state: present
+
+  vars:
+    packages:
+    - '*'
+    - git
+
+- name: install flask
+  become: yes
+  pip:
+    name: flask
+    state: present
