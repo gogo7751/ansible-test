@@ -1,5 +1,5 @@
 - name: web service
-  remote_user: phpa 
+  remote_user: ericshchang 
   hosts: localhost 
   vars:
     packages: nginx 
