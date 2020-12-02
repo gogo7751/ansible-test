@@ -13,3 +13,22 @@
     name: supervisord
     enabled: yes 
     state: started
+
+- name: update supervisor config
+  become: yes
+  copy:
+    src: files/supervisord.conf
+    dest: /etc/supervisord.conf
+
+- name: add new config
+  become: yes
+  copy:
+    src: files/app.conf
+    dest: /etc/supervisord.d/app.conf
+
+- name: restart supervisor
+  become: yes
+  supervisorctl:
+    name: app
+    state: restarted
+
