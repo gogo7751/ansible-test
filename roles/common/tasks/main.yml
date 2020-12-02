@@ -20,3 +20,9 @@
   pip:
     name: flask
     state: present
+
+- name: install policycoreutils-python
+  become: yes
+  pip:
+   name: policycoreutils-python
+   state: present
