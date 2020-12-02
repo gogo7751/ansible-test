@@ -25,3 +25,7 @@
     name: httpd_can_network_connect
     state: yes
     persistent: yes  
+  when:
+    - ansible_selinux.status == "enabled"
+    - selinux_allow_zabbix_can_network
+  tags: selinux    

@@ -20,9 +20,3 @@
   pip:
     name: flask
     state: present
-
-- name: install semanage
-  become: yes
-  pip:
-    name: semanage
-    state: present
