@@ -1,11 +1,31 @@
 ---
 - hosts: gcp
   gather_facts: no
+  become: yes
   
   tasks:
     - name: common
       include_role:
         name: common
+
+    - name: creates mymoji directory
+      file:
+        path: /home/mymoji
+        state: directory
+
+    - name: creates mymoji-api directory
+      file:
+        path: /home/mymoji/mymoji-api
+        state: directory
+
+    - name: Get files from git repository
+      git:
+          repo: "https://twm-devops:09350935Ab@github.com/twm-gh/mymoji-api.git"
+          dest: /home/mymoji/mymoji-api
+
+    - name: pip requirement.txt
+      pip:
+        requirements: /home/mymoji/mymoji-api/requirements.txt
 
     - name: nginx
       include_role:
