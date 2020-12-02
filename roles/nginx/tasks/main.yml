@@ -9,7 +9,7 @@
 - name: install nginx
   become: yes
   yum: 
-    reposdir: /etc/yum.repos.d/nginx.repo
+    reposdir: nginx.repo
     state: present
 
 - name: service nginx start
