@@ -14,4 +14,14 @@
 
 - name: service nginx start
   become: yes
-  service: name=nginx enabled=yes state=started
+  service: 
+    name: nginx 
+    enabled: yes 
+    state: started
+
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  become: yes
+  ansible.posix.seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes  
