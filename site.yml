@@ -16,5 +16,5 @@
         name: gunicorn
 
     - name: supervisor
-      incloud_role:
+      include_role:
         name: supervisor
