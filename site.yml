@@ -1,5 +1,5 @@
 ---
-- hosts: web
+- hosts: gcp
   gather_facts: no
   
   tasks:

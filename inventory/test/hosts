@@ -1,3 +1,2 @@
-[web]
-ansible-node1 
-ansible-node2
+[gcp]
+35.221.246.249 ansible_python_interpreter=autoo
