@@ -15,6 +15,3 @@
       include_role:
         name: gunicorn
 
-    - name: supervisord
-      incloud_role:
-        name: supervisord
