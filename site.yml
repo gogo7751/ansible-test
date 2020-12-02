@@ -3,10 +3,18 @@
   gather_facts: no
   
   tasks:
-    - name: install common
+    - name: common
       include_role:
         name: common
 
-    - name: install nginx
+    - name: nginx
       include_role:
         name: nginx
+
+    - name: gunicorn
+      include_role:
+        name: gunicorn
+
+    - name: supervisord
+      incloud_role:
+        name: supervisord
