@@ -21,3 +21,9 @@
   pip:
     name: flask
     state: present
+
+- name: update pip
+  become: yes
+  pip:
+    name: pip
+    state: latest
