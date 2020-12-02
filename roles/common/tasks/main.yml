@@ -5,16 +5,9 @@
   yum:
     name: "{{ packages }}"
     state: present
-
   vars:
     packages:
-    - '*'
     - git
-    - policycoreutils-python
-    # - python3
-    # - python3-devel
-    # - python3-pip
-    # - python-setuptools
 
 - name: install flask
   become: yes
