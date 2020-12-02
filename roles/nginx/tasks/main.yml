@@ -8,10 +8,8 @@
 
 - name: install nginx
   become: yes
-  vars:
-    packages: nginx 
   yum: 
-    name: /etc/yum.repos.d/nginx.repo
+    reposdir: /etc/yum.repos.d/nginx.repo
     state: present
 
 - name: service nginx start
