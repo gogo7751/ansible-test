@@ -1,0 +1,8 @@
+---
+# tasks file for roles/supervisor
+- name: install supervisor
+  become: yes
+  yum:
+    name:
+    - epel-release
+    - supervisor
