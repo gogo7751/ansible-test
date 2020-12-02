@@ -7,13 +7,6 @@
     - epel-release
     - supervisor
 
-- name: service supervisor start
-  become: yes
-  service: 
-    name: supervisord
-    enabled: yes 
-    state: started
-
 - name: update supervisor config
   become: yes
   copy:
@@ -25,6 +18,13 @@
   copy:
     src: files/app.conf
     dest: /etc/supervisord.d/app.conf
+
+- name: service supervisor start
+  become: yes
+  service: 
+    name: supervisord
+    enabled: yes 
+    state: started
 
 - name: restart supervisor
   become: yes
