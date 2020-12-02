@@ -25,4 +25,3 @@
     name: httpd_can_network_connect
     state: yes
     persistent: yes  
-    ignore_selinux_state: no
