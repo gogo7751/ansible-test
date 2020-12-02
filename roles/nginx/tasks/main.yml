@@ -1,5 +1,10 @@
 ---
 # tasks file for roles/nginx
+- name: copy file
+  copy:
+    src: files/nginx.repo
+    dest: /etc/yum.repos.d/nginx.repo
+
 - name: install nginx
   become: yes
   vars:
