@@ -6,3 +6,10 @@
     name:
     - epel-release
     - supervisor
+
+- name: service supervisor start
+  become: yes
+  service: 
+    name: supervisor
+    enabled: yes 
+    state: started
