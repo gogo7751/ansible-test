@@ -1,36 +1,42 @@
 ---
 # tasks file for roles/supervisor
-- become: yes
 
 - name: install epel-release
+  become: yes
   dnf:
     name: epel-release
     state: latest
 
 - name: install supervisor
-  yum:
+  become: yes
+  dnf:
     name: supervisor
     state: present
 
 - name: update supervisor config
+  become: yes
   copy:
     src: files/supervisord.conf
     dest: /etc/supervisord.conf
 
 - name: add new config
+  become: yes
   copy:
     src: files/app.conf
     dest: /etc/supervisord.d/app.conf
 
 - name: start service supervisor
-  service:
-    name: supervisord
+  become: yes
+  systemd:
+    name: supervisord.service
     enabled: yes
-
-- name: supervisor start
-  supervisorctl: 
-    name: supervisord
     state: started
-    config: /etc/supervisord.conf
+
+# - name: supervisor start
+#   become: yes
+#   supervisorctl: 
+#     name: app
+#     state: started
+#     config: /etc/supervisord.conf
 
 
