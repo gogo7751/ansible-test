@@ -22,6 +22,7 @@
       git:
           repo: "https://twm-devops:09350935Ab@github.com/twm-gh/mymoji-api.git"
           dest: /home/mymoji/mymoji-api
+          version: develop
 
     - name: pip requirement.txt
       pip:

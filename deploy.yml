@@ -1,0 +1,15 @@
+---
+- hosts: depoly
+  tasks:
+    # task 1
+    - name: Get updated files from git repository
+      git:
+        repo: "https://twm-devops:09350935Ab@github.com/twm-gh/mymoji-api.git"
+        dest: /home/ericsychang/mymoji-api
+        version: develop
+      become: yes
+
+    # task 2
+    - name: supervisorctl restart app
+      shell: supervisorctl restart app
+      become: yes
