@@ -1,6 +1,6 @@
 [gcp]
 34.80.183.240 ansible_python_interpreter=auto
 
-[depoly]
+[deploy]
 35.201.231.147 ansible_python_interpreter=auto
 34.80.236.66 ansible_python_interpreter=auto
