@@ -14,7 +14,7 @@ scopes:
 
 # design your infrastructure architecture
 nodes:
-  - name: standalone-node    #node-name such as standalone-node/name-node/secondary-name-node/data-node1/data-node2 ..
+  - name: test-instance    #node-name such as standalone-node/name-node/secondary-name-node/data-node1/data-node2 ..
     zone: asia-east1-b     #choose close regions, distribute to other nodes
     machine_type: e2-small   #increase when needed
     ips:

@@ -3,10 +3,10 @@
 
 - name: create a disk
   gcp_compute_disk:
-    name: "{{ general.name }}"
-    size_gb: "{{ general.size_gb }}"
-    source_image: "{{ general.source_image }}"
-    zone: "{{ general.zone }}"
+    name: "{{ item.1.disk.name }}"
+    size_gb: "{{ item.1.disk.size }}"
+    source_image: "{{ item.1.disk.image }}"
+    zone: "{{ item.0.zone }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
     service_account_file: "{{ general.service_account_file }}"
@@ -15,6 +15,22 @@
   - "{{ nodes }}"    
   - boot_disk
   register: bootdisk
+
+
+- name: create a address
+  gcp_compute_address:
+    name: "{{ item.1.nic.name }}"
+    region: "{{ general.region }}"
+    project: "{{ general.project }}"
+    auth_kind: "{{ general.auth_kind }}"
+    service_account_file: "{{ general.service_account_file }}"
+    state: present
+    scopes: "{{ scopes }}"
+  with_subelements: 
+  - "{{ nodes }}"    
+  - ips        
+  register: address
+
 
 - name: create a network
   gcp_compute_network:
@@ -26,19 +42,6 @@
     state: present
   register: network
 
-- name: create a address
-  gcp_compute_address:
-    name: address-instance
-    region: "{{ general.region }}"
-    project: "{{ general.project }}"
-    auth_kind: "{{ general.auth_kind }}"
-    service_account_file: "{{ general.service_account_file }}"
-    state: present
-    scopes: "{{ scopes }}"
-  with_subelements: 
-  - "{{ nodes }}"    
-  - ips        
-  register: address
 
 - name: create a firewall
   register: result
@@ -56,10 +59,11 @@
     service_account_file: "{{ general.service_account_file }}"
     state: present  
 
+
 - name: create a instance
   gcp_compute_instance:
-    name: "{{ instance.name }}"
-    machine_type: "{{ instance.machine_type }}"
+    name: "{{ item.name }}"
+    machine_type: "{{ item.machine_type }}"
 
     deletion_protection: false
     disks:
@@ -70,14 +74,17 @@
     - network: "{{ network }}"
       access_configs:
       - name: External NAT
-        nat_ip: "{{ address }}"
+        nat_ip: "{{ address.results.0 }}"
         type: ONE_TO_ONE_NAT
     tags:
       items:
       - http-server
       - https-server  
-    zone: "{{ general.zone }}"
+    zone: "{{ item.zone }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
     service_account_file: "{{ general.service_account_file }}"
     state: present
+  with_items: 
+  - "{{ nodes }}"        
+  register: instance
