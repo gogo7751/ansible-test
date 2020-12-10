@@ -1,0 +1,7 @@
+---
+# tasks file for roles/mysql
+- name: install mysql
+  yum:
+    name: mysql
+    state: present
+

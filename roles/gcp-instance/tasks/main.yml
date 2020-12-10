@@ -1,0 +1,47 @@
+---
+# tasks file for roles/gcp-instance
+
+- name: create a disk
+  gcp_compute_disk:
+    name: "{{ general.name }}"
+    size_gb: "{{ general.size_gb }}"
+    source_image: "{{ general.source_image }}"
+    zone: "{{ general.zone }}"
+    project: "{{ general.project }}"
+    auth_kind: "{{ general.auth_kind }}"
+    service_account_file: "{{ general.service_account_file }}"
+    state: present
+  register: disk
+
+# - name: create a network
+#   gcp_compute_network:
+#     name: network-instance
+#     project: "{{ general.project }}"
+#     auth_kind: "{{ general.auth_kind }}"
+#     service_account_file: "{{ general.service_account_file }}"
+#     state: present
+#   register: network
+
+- name: create a address
+  gcp_compute_address:
+    name: address-instance
+    region: "{{ general.region }}"
+    project: "{{ general.project }}"
+    auth_kind: "{{ general.auth_kind }}"
+    service_account_file: "{{ general.service_account_file }}"
+    state: present
+  register: address
+
+- name: create a instance
+  gcp_compute_instance:
+    name: "{{ instance.name }}"
+    machine_type: "{{ instance.machine_type }}"
+    disks:
+    - auto_delete: 'true'
+      boot: 'true'
+      source: "{{ general.source_image }}"
+    zone: "{{ general.zone }}"
+    project: "{{ general.project }}"
+    auth_kind: "{{ general.auth_kind }}"
+    service_account_file: "{{ general.service_account_file }}"
+    state: present

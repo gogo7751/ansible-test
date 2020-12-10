@@ -1,5 +1,5 @@
 ---
-- hosts: depoly
+- hosts: deploy
   tasks:
     # task 1
     - name: Get updated files from git repository
