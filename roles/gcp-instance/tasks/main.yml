@@ -16,14 +16,15 @@
   - boot_disk
   register: bootdisk
 
-# - name: create a network
-#   gcp_compute_network:
-#     name: network-instance
-#     project: "{{ general.project }}"
-#     auth_kind: "{{ general.auth_kind }}"
-#     service_account_file: "{{ general.service_account_file }}"
-#     state: present
-#   register: network
+- name: create a network
+  gcp_compute_network:
+    name: network-instance
+    auto_create_subnetworks: 'true'
+    project: "{{ general.project }}"
+    auth_kind: "{{ general.auth_kind }}"
+    service_account_file: "{{ general.service_account_file }}"
+    state: present
+  register: network
 
 - name: create a address
   gcp_compute_address:
@@ -39,6 +40,26 @@
   - ips        
   register: address
 
+- name: create a firewall
+  register: result
+  gcp_compute_firewall:
+    name: fw
+    allowed:
+    - ip_protocol: tcp
+      ports:
+      - '22'
+    target_tags:
+    - http-server
+    - https-server
+    - test-ssh-server
+    - staging-ssh-server
+    source_tags:
+    - test-ssh-clients
+    project: "{{ general.project }}"
+    auth_kind: "{{ general.auth_kind }}"
+    service_account_file: "{{ general.service_account_file }}"
+    state: present  
+
 - name: create a instance
   gcp_compute_instance:
     name: "{{ instance.name }}"
@@ -49,6 +70,12 @@
     - auto_delete: 'true'
       boot: 'true'
       source: "{{ bootdisk.results.0 }}"
+    network_interfaces:
+    - network: "{{ network }}"
+      access_configs:
+      - name: External NAT
+        nat_ip: "{{ address }}"
+        type: ONE_TO_ONE_NAT      
     zone: "{{ general.zone }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
