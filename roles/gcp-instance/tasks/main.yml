@@ -18,7 +18,7 @@
 
 - name: create a network
   gcp_compute_network:
-    name: network-instance
+    name: default
     auto_create_subnetworks: 'true'
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
@@ -51,10 +51,6 @@
     target_tags:
     - http-server
     - https-server
-    - test-ssh-server
-    - staging-ssh-server
-    source_tags:
-    - test-ssh-clients
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
     service_account_file: "{{ general.service_account_file }}"
@@ -75,7 +71,11 @@
       access_configs:
       - name: External NAT
         nat_ip: "{{ address }}"
-        type: ONE_TO_ONE_NAT      
+        type: ONE_TO_ONE_NAT
+    tags:
+      items:
+      - http-server
+      - https-server  
     zone: "{{ general.zone }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
