@@ -21,9 +21,6 @@ nodes:
         - nic: 
             name: "ip-01"
     tags: hadoop             #network tags used by FW rules! Use the tool name like hadoop, elasticsearch ...
-    labels:                  #filtering! Use the tool name as type + master/worker as name
-        type: hdfs
-        name: master
     boot_disk:
         - disk:
             name: "boot-disk-01"
