@@ -3,11 +3,10 @@
 
 - name: create a disk
   gcp_compute_disk:
-    name: "{{ item.1.disk.name }}"
-    size_gb: "{{ item.1.disk.size }}"
-    source_image: "{{ item.1.disk.image }}"
-    zone: "{{ item.0.zone }}"
-
+    name: "{{ general.name }}"
+    size_gb: "{{ general.size_gb }}"
+    source_image: "{{ general.source_image }}"
+    zone: "{{ general.zone }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
     service_account_file: "{{ general.service_account_file }}"
@@ -49,7 +48,7 @@
     disks:
     - auto_delete: 'true'
       boot: 'true'
-      source: "{{ bootdisk.results.0 }}"
+      source: "{{  bootdisk.results.0 }}"
     zone: "{{ general.zone }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
