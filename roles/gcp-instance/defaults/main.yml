@@ -31,14 +31,3 @@ nodes:
             image: "projects/centos-cloud/global/images/family/centos-8"
             auto_delete: true
             boot: true
-    additional_disks:
-        - disk: 
-            name: "data-disk-01"
-            size: 300
-            auto_delete: true     #false is better for production usecases
-            boot: false
-        - disk: 
-            name: "log-disk-01"
-            size: 300
-            auto_delete: true     #false is better for production usecases
-            boot: false

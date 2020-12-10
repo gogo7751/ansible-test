@@ -14,7 +14,7 @@
   with_subelements: 
   - "{{ nodes }}"    
   - boot_disk
-  register: disk
+  register: bootdisk
 
 # - name: create a network
 #   gcp_compute_network:
@@ -48,7 +48,7 @@
     disks:
     - auto_delete: 'true'
       boot: 'true'
-      source: "{{  bootdisk.results.0 }}"
+      source: "{{ bootdisk.results.0 }}"
     zone: "{{ general.zone }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
