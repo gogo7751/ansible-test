@@ -1,0 +1,9 @@
+---
+- hosts: local
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: instace vm
+      include_role:
+        name: gcp-instance
