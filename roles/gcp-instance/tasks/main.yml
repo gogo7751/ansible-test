@@ -11,6 +11,9 @@
     auth_kind: "{{ general.auth_kind }}"
     service_account_file: "{{ general.service_account_file }}"
     state: present
+  with_subelements: 
+  - "{{ nodes }}"    
+  - boot_disk
   register: disk
 
 # - name: create a network
@@ -30,16 +33,22 @@
     auth_kind: "{{ general.auth_kind }}"
     service_account_file: "{{ general.service_account_file }}"
     state: present
+    scopes: "{{ scopes }}"
+  with_subelements: 
+  - "{{ nodes }}"    
+  - ips        
   register: address
 
 - name: create a instance
   gcp_compute_instance:
     name: "{{ instance.name }}"
     machine_type: "{{ instance.machine_type }}"
+
+    deletion_protection: false
     disks:
     - auto_delete: 'true'
       boot: 'true'
-      source: "{{ general.source_image }}"
+      source: "{{ bootdisk.results.0 }}"
     zone: "{{ general.zone }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"

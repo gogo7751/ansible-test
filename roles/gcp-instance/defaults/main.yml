@@ -1,2 +1,44 @@
+  
 ---
-# defaults file for roles/gcp-instance
+# defaults file for role-gcp-instances
+
+
+# GCP project
+general:
+    project: central-academy-292509       #gcp project ID 
+    region: asia-east1         #gcp region
+    auth_kind: serviceaccount     
+    service_account_file: ~/.ssh/key.json
+scopes:
+    - https://www.googleapis.com/auth/compute
+
+# design your infrastructure architecture
+nodes:
+  - name: standalone-node    #node-name such as standalone-node/name-node/secondary-name-node/data-node1/data-node2 ..
+    zone: asia-east1-b     #choose close regions, distribute to other nodes
+    machine_type: e2-small   #increase when needed
+    ips:
+        - nic: 
+            name: "ip-01"
+    tags: hadoop             #network tags used by FW rules! Use the tool name like hadoop, elasticsearch ...
+    labels:                  #filtering! Use the tool name as type + master/worker as name
+        type: hdfs
+        name: master
+    boot_disk:
+        - disk:
+            name: "boot-disk-01"
+            size: 20
+            image: "projects/centos-cloud/global/images/family/centos-8"
+            auto_delete: true
+            boot: true
+    additional_disks:
+        - disk: 
+            name: "data-disk-01"
+            size: 300
+            auto_delete: true     #false is better for production usecases
+            boot: false
+        - disk: 
+            name: "log-disk-01"
+            size: 300
+            auto_delete: true     #false is better for production usecases
+            boot: false

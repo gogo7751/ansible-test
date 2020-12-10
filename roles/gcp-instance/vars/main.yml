@@ -1,16 +1,16 @@
----
-# vars file for roles/gcp-instance
-### DEFAULTS ###
-general:
-  name: disk-instance
-  size_gb: 20
-  source_image: projects/centos-cloud/global/images/family/centos-8
-  zone: asia-east1-b
-  region: asia-east1
-  project: central-academy-292509
-  auth_kind: serviceaccount
-  service_account_file: ~/.ssh/key.json
+# ---
+# # vars file for roles/gcp-instance
+# ### DEFAULTS ###
+# general:
+#   name: disk-instance
+#   size_gb: 20
+#   source_image: projects/centos-cloud/global/images/family/centos-8
+#   zone: asia-east1-b
+#   region: asia-east1
+#   project: central-academy-292509
+#   auth_kind: serviceaccount
+#   service_account_file: ~/.ssh/key.json
 
-instance:
-  name: test-instance
-  machine_type: e2-small
+# instance:
+#   name: test-instance
+#   machine_type: e2-small
