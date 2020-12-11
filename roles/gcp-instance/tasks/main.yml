@@ -42,6 +42,7 @@
     state: present
   register: network
 
+
 - name: create a firewall
   register: result
   gcp_compute_firewall:
@@ -58,6 +59,7 @@
     service_account_file: "{{ general.service_account_file }}"
     state: present  
 
+
 - name: create a instance
   gcp_compute_instance:
     name: "{{ item.name }}"
@@ -70,7 +72,7 @@
       source: "{{ bootdisk.results.0 }}"
     network_interfaces:
     - network: "{{ network }}"
-    - access_configs:
+      access_configs:
       - name: External NAT
         nat_ip: "{{ address.results.0 }}"
         type: ONE_TO_ONE_NAT
@@ -85,20 +87,22 @@
     state: present
   with_items: 
   - "{{ nodes }}"        
-  register: instance    
+  register: instance 
 
 
 - name: create sql connection
   gcp_sql_instance:
-    name: "test"
+    name: central-academy-292509:asia-east1:test
     settings:
       ip_configuration:
         authorized_networks:
         - name: "{{ item.name }}"
-          value: "{{ address.results.0 }}"
+          value: "{{ address.results.0 |string }}"
       tier: db-n1-standard-1
     region: "{{ general.region }}"
     project: "{{ general.project }}"
     auth_kind: "{{ general.auth_kind }}"
     service_account_file: "{{ general.service_account_file }}"
     state: present 
+  with_items: 
+  - "{{ nodes }}"          
