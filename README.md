@@ -37,3 +37,9 @@ $ chmod 400 ~/.ssh/[KEY_FILENAME]
 ```
 $ ssh -i ~/.ssh/[KEY_FILENAME] [username]@[serverIP]
 ```
+
+### 產生 GCP service account keys
+gcloud iam service-accounts keys create ~/.ssh/key.json \
+  --iam-account [sa-name]@[project-id].iam.gserviceaccount.com
+
+[sa-name]@[project-id].iam.gserviceaccount.com 可到服務帳戶查詢  
