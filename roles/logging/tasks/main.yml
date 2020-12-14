@@ -6,7 +6,7 @@
     dest: /home/mymoji/add-logging-agent-repo.sh
 
 - name: Run shell
-  command: bash add-logging-agent-repo.sh
+  command: bash /home/mymoji/add-logging-agent-repo.sh
   changed_when: false
 
 - name: Install google-fluentd

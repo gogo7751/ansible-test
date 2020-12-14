@@ -1,47 +1,47 @@
 ---
 - hosts: gcp
-  gather_facts: true
+  gather_facts: no
   become: yes
   
   tasks:
-    - name: common
-      include_role:
-        name: common
+    # - name: common
+    #   include_role:
+    #     name: common
 
-    - name: creates mymoji directory
-      file:
-        path: /home/mymoji/mymoji-api
-        state: directory
+    # - name: creates mymoji directory
+    #   file:
+    #     path: /home/mymoji/mymoji-api
+    #     state: directory
 
-    - name: Get files from git repository
-      git:
-          repo: "https://twm-devops:09350935Ab@github.com/twm-gh/mymoji-api.git"
-          dest: /home/mymoji/mymoji-api
-          version: develop
+    # - name: Get files from git repository
+    #   git:
+    #       repo: "https://twm-devops:09350935Ab@github.com/twm-gh/mymoji-api.git"
+    #       dest: /home/mymoji/mymoji-api
+    #       version: develop
 
-    - name: pip requirement.txt
-      pip:
-        requirements: /home/mymoji/mymoji-api/requirements.txt
+    # - name: pip requirement.txt
+    #   pip:
+    #     requirements: /home/mymoji/mymoji-api/requirements.txt
 
-    - name: nginx
-      include_role:
-        name: nginx
+    # - name: nginx
+    #   include_role:
+    #     name: nginx
 
-    - name: gunicorn
-      include_role:
-        name: gunicorn
+    # - name: gunicorn
+    #   include_role:
+    #     name: gunicorn
 
-    - name: supervisor
-      include_role:
-        name: supervisor
+    # - name: supervisor
+    #   include_role:
+    #     name: supervisor
 
-    - name: logging
-      include_role:
-        name: logging
+    # - name: logging
+    #   include_role:
+    #     name: logging
 
     - name: monitoring
       include_role:
         name: monitoring
 
-  roles:
-    - geerlingguy.clamav
+  # roles:
+  #   - geerlingguy.clamav
