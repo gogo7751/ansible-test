@@ -1,19 +1,16 @@
 ---
 - hosts: gcp
-  gather_facts: no
+  gather_facts: true
   become: yes
   
   tasks:
+    - name:
+
     - name: common
       include_role:
         name: common
 
     - name: creates mymoji directory
-      file:
-        path: /home/mymoji
-        state: directory
-
-    - name: creates mymoji-api directory
       file:
         path: /home/mymoji/mymoji-api
         state: directory
@@ -39,3 +36,6 @@
     - name: supervisor
       include_role:
         name: supervisor
+
+  roles:
+    - geerlingguy.clamav

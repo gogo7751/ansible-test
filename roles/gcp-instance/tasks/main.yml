@@ -92,12 +92,12 @@
 
 - name: create sql connection
   gcp_sql_instance:
-    name: central-academy-292509:asia-east1:test
+    name: test-2
     settings:
       ip_configuration:
         authorized_networks:
         - name: "{{ item.name }}"
-          value: "{{ address.results.0 |string }}"
+          value: "{{ address.results.0.address }}"
       tier: db-n1-standard-1
     region: "{{ general.region }}"
     project: "{{ general.project }}"
@@ -105,4 +105,4 @@
     service_account_file: "{{ general.service_account_file }}"
     state: present 
   with_items: 
-  - "{{ nodes }}"          
+  - "{{ nodes }}"    

@@ -1,5 +1,5 @@
 [gcp]
-104.199.146.223 ansible_python_interpreter=auto
+34.80.183.240 ansible_python_interpreter=auto
 
 [deploy]
 35.201.231.147 ansible_python_interpreter=auto
