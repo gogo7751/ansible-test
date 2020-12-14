@@ -1,2 +1,23 @@
 ---
 # tasks file for roles/monitoring
+- name: Download monitoring agent reop shell
+  get_url:
+    url: https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
+    dest: /home/mymoji/add-monitoring-agent-repo.sh
+
+- name: Run shell
+  command: bash add-monitoring-agent-repo.sh
+  changed_when: false
+  become: yes
+
+- name: Install stackdriver-agent
+  yum:
+    name: stackdriver-agent
+    state: present
+  become: yes
+
+- name: Restart stackdriver-agent service
+  service:
+    name: stackdriver-agent
+    state: restarted
+  become: yes
