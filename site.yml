@@ -1,9 +1,9 @@
 ---
 - hosts: gcp
-  gather_facts: no
+  gather_facts: yes
   become: yes
   
-  tasks:
+  pre_tasks:
     - name: common
       include_role:
         name: common
@@ -35,13 +35,13 @@
       include_role:
         name: supervisor
 
-    # - name: logging
-    #   include_role:
-    #     name: logging
+    - name: logging
+      include_role:
+        name: logging
 
-    # - name: monitoring
-    #   include_role:
-    #     name: monitoring
+    - name: monitoring
+      include_role:
+        name: monitoring
 
   roles:
     - geerlingguy.clamav

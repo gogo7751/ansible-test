@@ -1,12 +1,18 @@
 ---
 # tasks file for roles/logging
+- name: Run whoami .
+  command: whoami
+  become: false
+  changed_when: false
+  register: whoami
+
 - name: Download monitoring agent reop shell
   get_url:
     url: https://dl.google.com/cloudagents/add-logging-agent-repo.sh
-    dest: /home/mymoji/add-logging-agent-repo.sh
+    dest: /home/{{ whoami.stdout }}/add-logging-agent-repo.sh
 
 - name: Run shell
-  command: bash /home/mymoji/add-logging-agent-repo.sh
+  command: bash add-logging-agent-repo.sh
   changed_when: false
 
 - name: Install google-fluentd

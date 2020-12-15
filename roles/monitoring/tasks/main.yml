@@ -1,12 +1,18 @@
 ---
 # tasks file for roles/monitoring
+- name: Run whoami .
+  command: whoami
+  become: false
+  changed_when: false
+  register: whoami
+
 - name: Download monitoring agent reop shell
   get_url:
     url: https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
-    dest: /home/mymoji/add-monitoring-agent-repo.sh
+    dest: /home/{{ whoami.stdout }}/add-monitoring-agent-repo.sh
 
 - name: Run shell
-  command: bash /home/mymoji/add-monitoring-agent-repo.sh
+  command: bash add-monitoring-agent-repo.sh
   changed_when: false
 
 - name: Install stackdriver-agent
