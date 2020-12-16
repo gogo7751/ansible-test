@@ -1,9 +1,9 @@
 [gcp]
-35.201.230.6 ansible_python_interpreter=auto
+35.221.246.249 ansible_python_interpreter=auto
 
 [deploy]
-35.201.231.147 ansible_python_interpreter=auto
-34.80.236.66 ansible_python_interpreter=auto
+35.221.246.249 ansible_python_interpreter=auto
+
 
 [local]
 localhost ansible_connection=local ansible_python_interpreter=auto

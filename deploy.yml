@@ -5,19 +5,21 @@
     - name: Get updated files from git repository
       git:
         repo: "https://twm-devops:09350935Ab@github.com/twm-gh/mymoji-api.git"
-        dest: /home/ericsychang/mymoji-api
+        dest: /home/mymoji/mymoji-api
         version: develop
       become: yes
 
     - name: migrate database
-      command: python manage.py db migrate
-      args: 
-        chdir: /home/ericsychang/mymoji-api
+      command: python3 /home/mymoji/mymoji-api/manage.py db migrate
+      args:
+        chdir: /home/mymoji/mymoji-api/
+      become: yes
       
     - name: upgrade database
-      command: python manage.py db upgarde
-      args: 
-       chdir: /home/ericsychang/mymoji-api
+      command: python3 /home/mymoji/mymoji-api/manage.py db upgrade
+      args:
+        chdir: /home/mymoji/mymoji-api/
+      become: yes
 
     # task 2
     - name: supervisorctl restart app
