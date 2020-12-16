@@ -11,11 +11,13 @@
 
     - name: migrate database
       command: python manage.py db migrate
-      args: /home/ericsychang/mymoji-api
+      args: 
+        chdir: /home/ericsychang/mymoji-api
       
     - name: upgrade database
       command: python manage.py db upgarde
-      args: /home/ericsychang/mymoji-api
+      args: 
+       chdir: /home/ericsychang/mymoji-api
 
     # task 2
     - name: supervisorctl restart app
