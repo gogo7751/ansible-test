@@ -1,0 +1,9 @@
+---
+- hosts: gcp
+  gather_facts: yes
+  become: yes
+  
+  pre_tasks:
+    - name: get enivronment
+      environment:
+        TEST: test_test_test
