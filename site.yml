@@ -2,23 +2,10 @@
 - hosts: gcp
   gather_facts: yes
   become: yes
+  vars_files:
+    - vars/vars.yml
   
   pre_tasks:
-    # - name: Adding MYSQL_ENDPOINT
-    #   lineinfile: 
-    #     dest=/etc/environment 
-    #     line="MYSQL_ENDPOINT=35.189.191.8:3306"
-    #     state=present
-      
-    # - name: Adding BUCKET_NAME
-    #   lineinfile: 
-    #     dest=/etc/environment
-    #     line="BUCKET_NAME=dev_public_resource"  
-    #     state=present
-
-    # - name: Source environment file
-    #   shell: . /etc/environment
-
     - name: common
       include_role:
         name: common

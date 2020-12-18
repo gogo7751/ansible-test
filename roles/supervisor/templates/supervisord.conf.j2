@@ -1,6 +1,5 @@
-{% if supervisor_unix_http_server_enable %}
 [unix_http_server]
-file = {{ supervisor_unix_http_server_socket_path }}   ; (the path to the socket file)
+file=/var/run/supervisor/supervisor.sock   ; (the path to the socket file)
 ;chmod=0700                 ; sockef file mode (default 0700)
 ;chown=nobody:nogroup       ; socket file uid:gid owner
 ;username=user              ; (default is no username (open server))
@@ -10,19 +9,17 @@ file = {{ supervisor_unix_http_server_socket_path }}   ; (the path to the socket
 ;port=127.0.0.1:9001        ; (ip_address:port specifier, *:port for all iface)
 ;username=user              ; (default is no username (open server))
 ;password=123               ; (default is no password (open server))
-{% endif %}
-
 
 [supervisord]
-logfile={{ logfile }}  ; (main log file;default $CWD/supervisord.log)
-logfile_maxbytes={{ logfile_maxbytes }}       ; (max main logfile bytes b4 rotation;default 50MB)
-logfile_backups={{ logfile_backups }}         ; (num of main logfile rotation backups;default 10)
-loglevel={{ loglevel }}               ; (log level;default info; others: debug,warn,trace)
-pidfile={{ pidfile }}; (supervisord pidfile;default supervisord.pid)
-nodaemon={{ nodaemon }}              ; (start in foreground if true;default false)
-minfds={{ minfds }}                 ; (min. avail startup file descriptors;default 1024)
-minprocs={{ minprocs }}                ; (min. avail process descriptors;default 200)
-environment=MYSQL_ENDPOINT=35.189.191.8:3306, BUCKET_NAME=dev_public_resource;
+logfile=/var/log/supervisor/supervisord.log  ; (main log file;default $CWD/supervisord.log)
+logfile_maxbytes=50MB       ; (max main logfile bytes b4 rotation;default 50MB)
+logfile_backups=10          ; (num of main logfile rotation backups;default 10)
+loglevel=info               ; (log level;default info; others: debug,warn,trace)
+pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+nodaemon=false              ; (start in foreground if true;default false)
+minfds=1024                 ; (min. avail startup file descriptors;default 1024)
+minprocs=200                ; (min. avail process descriptors;default 200)
+environment=MYSQL_ENDPOINT={{ MYSQL_ENDPOINT }}, BUCKET_NAME={{ BUCKET_NAME }};
 ;umask=022                  ; (process file creation umask;default 022)
 ;user=chrism                 ; (default is current user, required if root)
 ;identifier=supervisor       ; (supervisord identifier, default is 'supervisor')
@@ -35,12 +32,11 @@ environment=MYSQL_ENDPOINT=35.189.191.8:3306, BUCKET_NAME=dev_public_resource;
 ; the below section must remain in the config file for RPC
 ; (supervisorctl/web interface) to work, additional interfaces may be
 ; added by defining them in separate rpcinterface: sections
-
 [rpcinterface:supervisor]
-supervisor.rpcinterface_factory = {{ supervisor.rpcinterface_factory }}
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
 [supervisorctl]
-serverurl={{ serverurl }} ; use a unix:// URL  for a unix socket
+serverurl=unix:///var/run/supervisor/supervisor.sock ; use a unix:// URL  for a unix socket
 ;serverurl=http://127.0.0.1:9001 ; use an http:// url to specify an inet socket
 ;username=chris              ; should be same as http_username if set
 ;password=123                ; should be same as http_password if set
@@ -129,4 +125,4 @@ serverurl={{ serverurl }} ; use a unix:// URL  for a unix socket
 ; include files themselves.
 
 [include]
-files = {{ files }}
+files = /etc/supervisord.d/*.conf

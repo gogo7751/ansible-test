@@ -1,0 +1,2 @@
+MYSQL_ENDPOINT: 35.189.191.8:3306
+BUCKET_NAME: dev_public_resource
