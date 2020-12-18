@@ -4,6 +4,21 @@
   become: yes
   
   pre_tasks:
+    # - name: Adding MYSQL_ENDPOINT
+    #   lineinfile: 
+    #     dest=/etc/environment 
+    #     line="MYSQL_ENDPOINT=35.189.191.8:3306"
+    #     state=present
+      
+    # - name: Adding BUCKET_NAME
+    #   lineinfile: 
+    #     dest=/etc/environment
+    #     line="BUCKET_NAME=dev_public_resource"  
+    #     state=present
+
+    # - name: Source environment file
+    #   shell: . /etc/environment
+
     - name: common
       include_role:
         name: common
@@ -17,7 +32,7 @@
       git:
           repo: "https://twm-devops:09350935Ab@github.com/twm-gh/mymoji-api.git"
           dest: /home/mymoji/mymoji-api
-          version: develop
+          version: terraform-intro-use
 
     - name: pip requirement.txt
       pip:
@@ -35,13 +50,13 @@
       include_role:
         name: supervisor
 
-    - name: logging
-      include_role:
-        name: logging
+  #   - name: logging
+  #     include_role:
+  #       name: logging
 
-    - name: monitoring
-      include_role:
-        name: monitoring
+  #   - name: monitoring
+  #     include_role:
+  #       name: monitoring
 
-  roles:
-    - geerlingguy.clamav
+  # roles:
+  #   - geerlingguy.clamav

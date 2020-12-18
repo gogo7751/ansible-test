@@ -17,3 +17,8 @@
   pip:
     name: pip
     state: latest
+
+- name: install policycoreutils-python-utils
+  dnf:
+    name: policycoreutils-python-utils
+    state: present

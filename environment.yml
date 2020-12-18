@@ -2,9 +2,27 @@
 - hosts: gcp
   gather_facts: yes
   become: yes
+  environment:
+    MYSQL_ENDPOINT: "35.189.191.8:3306"
+    BUCKET_NAME: "dev_public_resource"
+
   
   pre_tasks:
-    - name: get enivronment
-      shell: "echo $TEST"
+    # - name: get enivronment MYSQL_ENDPOINT
+    #   shell: "echo $MYSQL_ENDPOINT"
+    #   environment:
+    #     MYSQL_ENDPOINT: 35.189.191.8:3306
+
+    # - name: get enivronment BUCKET_NAME
+    #   shell: "echo $BUCKET_NAME"
+    #   environment:
+    #     BUCKET_NAME: dev_public_resource
+
+    - name: start service supervisor
+      systemd:
+        name: supervisord.service
+        enabled: yes
+        state: restarted
       environment:
-        TEST: test_test_test
+        BUCKET_NAME: dev_public_resource
+        MYSQL_ENDPOINT: 35.189.191.8:3306
